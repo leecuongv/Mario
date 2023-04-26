@@ -6,8 +6,9 @@ from background import Background
 from player import Player
 import cv2
 import ui
-
+from random  import randint
 import keyboard
+from point import Point
 
 class Game:
     def __init__(self, surface):
@@ -16,9 +17,9 @@ class Game:
 
 
     def reset(self): # reset all the needed variables
-        self.insects = []
+        
         self.player = Player()
-        self.insects_spawn_timer = 0
+        
         self.score = 0
         self.game_start_time = time.time()
 
@@ -26,10 +27,6 @@ class Game:
     def draw(self):
         # draw the background
         self.background.draw(self.surface)
-        # draw the insects
-        for insect in self.insects:
-            insect.draw(self.surface)
-        # draw the hand
         self.player.draw(self.surface)
         # draw the score
         ui.draw_text(self.surface, f"Score : {self.score}", (300, 5), COLORS["score"], font=FONTS["medium"],
@@ -45,7 +42,9 @@ class Game:
 
 
     def update(self):
-
+        mypoint=Point()
+        x_coor=0 
+        y_coor=200
         #self.load_camera()
         self.game_time_update()
 
@@ -64,19 +63,19 @@ class Game:
         
             self.player.x=x_coor
             self.player.y=y_coor
-            self.player.draw()
+            self.player.draw(self.surface)
             self.player.update_animation()
             #vẽ và update đrl:
            
             
             #cập nhật đối tượng người chơi và đrl, đồng thời hiển thị điểm hiện tại và thời gian còn lại:
-            if (abs(pl.x-mypoint.x)<=50 and abs(pl.y-mypoint.y)<=50): #tạo va chạm
+            if (abs(self.player.x-mypoint.x)<=50 and abs(self.player.y-mypoint.y)<=50): #tạo va chạm
                 if (mypoint.numPoint==0): 
-                    totalScore+=5
+                    self.score+=5
                 elif (mypoint.numPoint==1):
-                    totalScore+=10
+                    self.score+=10
                 else:
-                    totalScore+=20
+                    self.score+=20
                 mypoint.x=randint(200,900)
                 mypoint.y=randint(0,500)  
                 mypoint.numPoint=randint(0,2) 
@@ -84,9 +83,7 @@ class Game:
                 mypoint.update() # cập nhật đrl
 
         else: # when the game is over
-            if ui.button(self.surface, 540, "Continue", click_sound=self.sounds["slap"]):
+            if ui.button(self.surface, 540, "Continue"):
                 return "menu"
 
 
-        cv2.imshow("Frame", self.frame)
-        cv2.waitKey(1)

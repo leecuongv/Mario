@@ -4,7 +4,7 @@ import sys
 import os
 
 from settings import *
-from game import Game
+from gamem import Game
 from menu import Menu
 
 
@@ -63,7 +63,6 @@ def update():
 
 # Loop ------------------------------------------------------------ #
 while True:
-    game.load_cam()
     # Buttons ----------------------------------------------------- #
     user_events()
 

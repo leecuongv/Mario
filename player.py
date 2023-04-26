@@ -1,5 +1,7 @@
 import pygame
 from settings import *
+import image
+
 DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT)) 
 dir_ = 'ếch/' #gán tệp hình ảnh
 animation_ = [] # tạo một list 
@@ -16,10 +18,15 @@ class Player():
         self.img = animation_[0]
         self.frame = 0
         self.time_int = pygame.time.get_ticks()
+        self.orig_image = image.load("ếch/1.png", size=(HAND_SIZE, HAND_SIZE))
+        self.image = self.orig_image.copy()
+        
+        self.rect = pygame.Rect(SCREEN_WIDTH//2, SCREEN_HEIGHT//2, HAND_HITBOX_SIZE[0], HAND_HITBOX_SIZE[1])
+        self.left_click = False
 
-    def draw(self):
-        self.update_animation()
-        DISPLAYSURF.blit(self.img, (self.x, self.y))
+    def draw(self, surface):
+        
+        DISPLAYSURF.blit(surface, (self.x, self.y))
 
     def update_animation(self):
         self.time_now = pygame.time.get_ticks()

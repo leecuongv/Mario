@@ -13,7 +13,7 @@ font_style = pygame.font.SysFont("bahnschrift", 50)
 score_font = pygame.font.SysFont("comicsansms", 35)
 
 DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT)) #tạo cửa sổ với kích thước
-class point():
+class Point():
     def __init__(self):
         self.x = 200
         self.y = 300
