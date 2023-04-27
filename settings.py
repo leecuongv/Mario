@@ -11,7 +11,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1350,690
 
 #SCREEN_WIDTH, SCREEN_HEIGHT = pyautogui.size()
 
-FPS = 90
+FPS = 100
 DRAW_FPS = True
 
 # sizes

@@ -2,6 +2,11 @@
 import pygame
 from settings import *
 from random  import randint
+from settings import *
+
+import time
+
+clock = pygame.time.Clock()
 
 DRL =[] #tạo ds trống
 #thêm 3 hình ảnh vào ds DRL
@@ -17,20 +22,28 @@ class Point():
     def __init__(self):
         self.x = 200
         self.y = 300
-        self.speed = 3
+        self.speed = 100
         self.numPoint=randint(0,2) 
         self.img = DRL #hình ảnh từ danh sách DRL
+        self.current_frame = 0
+        self.animation_timer = 0
+        
+        
     def draw(self):
+        self.animate()
         DISPLAYSURF.blit(self.img[self.numPoint], (int(self.x), int(self.y)))
+        
     def update(self): #cập nhật vị trí của đrl
         self.x -= self.speed 
         if self.x < -200: 
             self.numPoint=randint(0,2) 
             self.x = randint(200,900) 
             self.y = randint(0,500)
-def drawScore(score): # hiện điểm
-    value = score_font.render("Your score: " + str(score), True, (255, 255, 102))
-    DISPLAYSURF.blit(value, [0, 0]) #hiển thị vb lên bề mặt
-def drawTime(time): # thời gian còn lại, time là đầu vào, dùng score_font
-    value = score_font.render("Time remaining: "+str(time), True, (255, 100, 102))
-    DISPLAYSURF.blit(value, [500, 50])
+    
+    def animate(self): # change the frame of the insect when needed
+        t = time.time()
+        if t > self.animation_timer:
+            self.animation_timer = t + ANIMATION_SPEED
+            self.current_frame += 1
+            if self.current_frame > len(self.img)-1:
+                self.current_frame = 0

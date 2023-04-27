@@ -24,9 +24,9 @@ class Player():
         self.rect = pygame.Rect(SCREEN_WIDTH//2, SCREEN_HEIGHT//2, HAND_HITBOX_SIZE[0], HAND_HITBOX_SIZE[1])
         self.left_click = False
 
-    def draw(self, surface):
+    def draw(self):
         
-        DISPLAYSURF.blit(surface, (self.x, self.y))
+        DISPLAYSURF.blit(self.image, (self.x, self.y))
 
     def update_animation(self):
         self.time_now = pygame.time.get_ticks()
